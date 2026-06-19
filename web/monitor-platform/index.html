@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>智护忆途监护平台 DEMO</title>
+
+  <!-- 引入外部 CSS 文件 -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div>
+      <h1>智护忆途监护平台 DEMO</h1>
+      <p>阿尔茨海默症患者户外安全监护原型系统</p>
+    </div>
+
+    <div class="system-status">
+      <span class="status-dot"></span>
+      <span>系统运行中</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="dashboard">
+      <div class="card stat-card">
+        <p>设备编号</p>
+        <h2 id="deviceIdView">--</h2>
+      </div>
+
+      <div class="card stat-card">
+        <p>当前电量</p>
+        <h2 id="batteryView">--</h2>
+      </div>
+
+      <div class="card stat-card">
+        <p>运行状态</p>
+        <h2 id="statusView">--</h2>
+      </div>
+
+      <div class="card stat-card">
+        <p>风险等级</p>
+        <h2 id="riskView">--</h2>
+      </div>
+    </section>
+
+    <section class="main-grid">
+      <div class="card">
+        <div class="section-title">
+          <h2>终端数据接入</h2>
+          <span>Device Data</span>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            设备编号
+            <input id="deviceId" value="ESP32-001" />
+          </label>
+
+          <label>
+            纬度
+            <input id="latitude" type="number" value="36.675800" />
+          </label>
+
+          <label>
+            经度
+            <input id="longitude" type="number" value="117.000900" />
+          </label>
+
+          <label>
+            电量 %
+            <input id="battery" type="number" value="86" />
+          </label>
+
+          <label>
+            温度 ℃
+            <input id="temperature" type="number" value="25.6" />
+          </label>
+
+          <label>
+            湿度 %
+            <input id="humidity" type="number" value="48" />
+          </label>
+
+          <label>
+            终端状态
+            <select id="status">
+              <option value="normal">正常</option>
+              <option value="fall">疑似跌倒</option>
+              <option value="help">主动求助</option>
+              <option value="still">长时间静止</option>
+              <option value="offline">设备离线</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="button-group">
+          <button onclick="receiveDeviceData()">接收终端数据</button>
+          <button class="secondary" onclick="generateDeviceData()">生成终端测试数据</button>
+          <button class="danger-btn" onclick="clearAllData()">清空记录</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <h2>实时监护概览</h2>
+          <span>Monitoring Overview</span>
+        </div>
+
+        <div class="overview">
+          <div>
+            <p class="label">当前位置</p>
+            <p id="locationView">暂无数据</p>
+          </div>
+
+          <div>
+            <p class="label">环境信息</p>
+            <p id="environmentView">暂无数据</p>
+          </div>
+
+          <div>
+            <p class="label">最近上传时间</p>
+            <p id="timeView">暂无数据</p>
+          </div>
+
+          <div>
+            <p class="label">电子围栏状态</p>
+            <p id="fenceView">暂无数据</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-title">
+        <h2>监护数据记录</h2>
+        <span>Data Records</span>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>设备编号</th>
+              <th>位置</th>
+              <th>电量</th>
+              <th>环境</th>
+              <th>状态</th>
+              <th>风险判断</th>
+            </tr>
+          </thead>
+
+          <tbody id="dataTable">
+            <tr>
+              <td colspan="7" class="empty">暂无监护数据</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- 引入外部 JS 文件 -->
+  <script src="script.js"></script>
+</body>
+</html>
